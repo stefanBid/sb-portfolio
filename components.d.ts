@@ -7,6 +7,6 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BaseIconMdiHome: typeof import('~icons/mdi/home')['default']
+    BaseIconMdiHome: (typeof import('~icons/mdi/home'))['default'];
   }
 }
