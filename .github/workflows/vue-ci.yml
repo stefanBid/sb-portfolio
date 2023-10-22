@@ -33,3 +33,6 @@ jobs:
 
             - name: Build
               run: npm run build
+
+            - name: GitHub Status Check
+              run: echo "All steps have passed!"
