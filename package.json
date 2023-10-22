@@ -12,7 +12,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "@vueuse/core": "^10.5.0",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.0.0",
