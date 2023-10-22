@@ -37,5 +37,8 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Lint Commit Message
+        run: npm run commitlint
+
       - name: GitHub Status Check
         run: echo "All steps have passed!"
