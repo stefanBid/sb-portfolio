@@ -1,10 +1,9 @@
 <script setup lang="ts">
-const msg = 'My Portfolio';
+  const msg = 'My Portfolio';
 </script>
 
 <template>
-<div>
-{{ msg }}
-</div>
+  <div>
+    {{ msg }}
+  </div>
 </template>
-
