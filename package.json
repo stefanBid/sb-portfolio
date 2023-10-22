@@ -4,16 +4,30 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "commitlint": "commitlint --from=$(git rev-parse HEAD~1) --to=$(git rev-parse HEAD)",
+    "lint": "prettier --check .",
+    "format": "prettier --write .",
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.3.4"
+    "@vueuse/core": "^10.5.0",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@commitlint/cli": "^18.0.0",
+    "@commitlint/config-conventional": "^18.0.0",
+    "@iconify-json/mdi": "^1.1.53",
     "@vitejs/plugin-vue": "^4.2.3",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "prettier": "3.0.3",
+    "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
+    "unplugin-icons": "^0.16.5",
+    "unplugin-vue-components": "^0.25.1",
     "vite": "^4.4.5",
     "vue-tsc": "^1.8.5"
   }

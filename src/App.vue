@@ -1,10 +1,10 @@
 <script setup lang="ts">
-const msg = 'My Portfolio';
+  const msg = 'My Portfolio';
 </script>
 
 <template>
-<div>
-{{ msg }}
-</div>
+  <div class="text-red-500">
+    <BaseIconMdiHome class="w-5 h-5" />
+    {{ msg }}
+  </div>
 </template>
-
