@@ -10,7 +10,11 @@ declare module 'vue' {
     BaseButton: (typeof import('./src/components/global/Button/BaseButton.vue'))['default'];
     BaseIconMdiClose: (typeof import('~icons/mdi/close'))['default'];
     BaseIconMdiConsole: (typeof import('~icons/mdi/console'))['default'];
+    BaseIconMdiDownload: (typeof import('~icons/mdi/download'))['default'];
+    BaseIconMdiGithub: (typeof import('~icons/mdi/github'))['default'];
     BaseIconMdiHome: (typeof import('~icons/mdi/home'))['default'];
+    BaseIconMdiInstagram: (typeof import('~icons/mdi/instagram'))['default'];
+    BaseIconMdiLinkedin: (typeof import('~icons/mdi/linkedin'))['default'];
     BaseIconMdiMenu: (typeof import('~icons/mdi/menu'))['default'];
     BaseIconMdiWeatherNight: (typeof import('~icons/mdi/weather-night'))['default'];
     BaseIconMdiWeatherSunny: (typeof import('~icons/mdi/weather-sunny'))['default'];
