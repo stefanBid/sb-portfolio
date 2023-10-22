@@ -1,10 +1,15 @@
 <script setup lang="ts">
-  const msg = 'My Portfolio';
+  import { RouterView } from 'vue-router';
+  import TheHeader from './components/Header/TheHeader.vue';
+  import TheFooter from './components/Footer/TheFooter.vue';
 </script>
 
 <template>
-  <div class="text-red-500">
-    <BaseIconMdiHome class="w-5 h-5" />
-    {{ msg }}
+  <div class="flex flex-col h-screen">
+    <TheHeader />
+    <main class="flex-grow overflow-x-hidden overflow-y-auto">
+      <RouterView />
+      <TheFooter />
+    </main>
   </div>
 </template>
