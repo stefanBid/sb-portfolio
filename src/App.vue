@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="text-red-500">
     {{ msg }}
   </div>
 </template>
