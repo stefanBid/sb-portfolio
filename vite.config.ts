@@ -7,7 +7,12 @@ import IconsResolver from 'unplugin-icons/resolver';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      script: {
+        defineModel: true,
+        propsDestructure: true,
+      },
+    }),
     Components({
       resolvers: [IconsResolver({ componentPrefix: 'BaseIcon' })],
     }),

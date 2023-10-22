@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+* {
+  @apply box-border p-0 m-0 no-underline border-none outline-none font-poppins scroll-smooth;
+}
+
+body {
+  @apply text-black bg-white dark:text-white dark:bg-sb-charcoal-200;
+}
+
+html {
+  @apply text-[100%] lg:text-[70%] overflow-x-hidden;
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #0582ca #1f252c;
+}
+
+*::-webkit-scrollbar {
+  @apply w-2;
+}
+
+*::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply border-2 rounded-full border-sb-sky-blue-300 bg-sb-sky-blue-200;
+}
