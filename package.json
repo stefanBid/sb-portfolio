@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "commitlint": "commitlint --from=HEAD~1",
+    "commitlint": "commitlint --from=$(git rev-parse HEAD~1) --to=$(git rev-parse HEAD)",
     "lint": "prettier --check .",
     "format": "prettier --write .",
     "dev": "vite",
