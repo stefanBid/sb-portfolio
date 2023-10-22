@@ -58,7 +58,7 @@
         switchDimension[props.size].width,
         switchDimension[props.size].height,
       ]"
-      class="relative inline-flex items-center transition-all duration-300 ease-in-out rounded-full cursor-pointer ring-1 ring-sb-sky-blue-100 hover:shadow-sb-sky-blue-100 hover:shadow-button shrink-0"
+      class="relative inline-flex items-center transition-all duration-300 ease-in-out border-2 rounded-full cursor-pointer border-sb-sky-blue-100 hover:shadow-sb-sky-blue-100 hover:shadow-button shrink-0"
     >
       <span
         aria-hidden="true"

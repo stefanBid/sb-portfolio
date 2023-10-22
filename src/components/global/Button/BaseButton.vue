@@ -17,7 +17,6 @@
   const slots = useSlots();
 
   const areMoreElementInSlot = computed(() => {
-    console.log(attrs.class);
     const defaultSlot = slots.default?.().length || 0;
     return defaultSlot > 1 ? true : false;
   });
