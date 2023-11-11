@@ -7,6 +7,11 @@ const routes = [
     name: 'home',
     component: HomePageView,
   },
+  {
+    path: '/about',
+    name: 'about',
+    component: HomePageView,
+  },
 ];
 
 const router = createRouter({

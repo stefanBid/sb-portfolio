@@ -1,10 +1,9 @@
 <script setup lang="ts">
-  import { useGlobalBreackPoints } from '../../composables/useGlobalBreackPoints';
-  import { usePageTitle } from '../../composables/usePageTitle';
-  import { useWindowOpen } from '../../composables/useWindowOpen';
-  import BaseTitle from '../../components/global/Title';
+  import { useGlobalBreackPoints } from '../../hooks/useGlobalBreackPoints';
+  import { usePageTitle } from '../../hooks/usePageTitle';
+  import { openWindow } from '@/utils/open.utils';
+  import { BaseTitle, BaseButton } from '@/components';
   import TypingText from './components/TypingText.vue';
-  import BaseButton from '../../components/global/Button';
   import { onMounted } from 'vue';
   //breakpoints
   const { breakpoints } = useGlobalBreackPoints();
@@ -14,9 +13,6 @@
   onMounted(() => {
     setPageTitle('Home');
   });
-
-  //window open
-  const { open } = useWindowOpen();
 </script>
 
 <template>
@@ -57,44 +53,41 @@
       <TypingText />
       <div class="inline-flex items-center my-5 gap-x-4">
         <BaseButton
-          @click="open('https://github.com/stefanBid')"
           type="outline"
-          rounded
-        >
-          <BaseIconMdiGithub class="w-icon-xxl h-icon-xxl" />
-        </BaseButton>
+          icon="Github"
+          @click="openWindow('https://github.com/stefanBid')"
+        />
+
         <BaseButton
-          @click="open('https://www.linkedin.com/in/stefano-biddau-669149214/')"
           type="outline"
-          rounded
-        >
-          <BaseIconMdiLinkedin class="w-icon-xxl h-icon-xxl" />
-        </BaseButton>
+          icon="Linkedin"
+          @click="
+            openWindow('https://www.linkedin.com/in/stefano-biddau-669149214/')
+          "
+        />
         <BaseButton
-          @click="open('https://www.instagram.com/stefano_bid/?next=%2F')"
           type="outline"
-          rounded
-        >
-          <BaseIconMdiInstagram class="w-icon-xxl h-icon-xxl" />
-        </BaseButton>
+          icon="Instagram"
+          @click="openWindow('https://www.instagram.com/stefano_bid/?next=%2F')"
+        />
       </div>
       <BaseButton
+        :icon="'DownloadArrow'"
         @click="
-          open(
+          openWindow(
             'https://drive.google.com/file/d/1wuibB821wePCKiF6Uy66dn623g7eW39g/view?usp=sharing',
           )
         "
         class="my-10 text-xl"
       >
         Download CV
-        <BaseIconMdiDownload class="w-icon-lg h-icon-lg" />
       </BaseButton>
     </div>
 
     <img
       src="/profile.png"
       alt="Foto profilo"
-      class="transition-transform duration-300 ease-in-out rounded-full bg-sb-sky-blue-100"
+      class="transition-all duration-300 ease-in-out rounded-full bg-sb-sky-blue-100"
       :style="{
         zoom: !breakpoints.lg ? '75%' : '50%',
       }"

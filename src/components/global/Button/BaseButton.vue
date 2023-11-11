@@ -1,47 +1,87 @@
 <script setup lang="ts">
-  import { computed, useAttrs, useSlots } from 'vue';
+  //FIXME: fixare uk problema del padding
+  import { BaseIcon } from '@/components';
+  import { IconName } from '@/types/icon.type';
+  import { computed, useSlots } from 'vue';
+
+  type ButtonKind = 'Primary' | 'Secondary';
 
   export interface BaseButtonProps {
-    type?: 'primary' | 'outline';
-    rounded?: boolean;
-    isDisabled?: boolean;
+    kind?: ButtonKind;
+    type?: 'solid' | 'outline';
+    icon?: IconName;
+    disabled?: boolean;
   }
 
   const props = withDefaults(defineProps<BaseButtonProps>(), {
-    type: 'primary',
-    rounded: false,
-    isDisabled: false,
+    kind: 'Primary',
+    type: 'solid',
+    icon: undefined,
+    disabled: false,
   });
 
-  const attrs = useAttrs();
+  defineOptions({ inheritAttrs: false });
+
   const slots = useSlots();
 
-  const areMoreElementInSlot = computed(() => {
+  const areMoreElementsInButtonWrapper = computed(() => {
     const defaultSlot = slots.default?.().length || 0;
-    return defaultSlot > 1 ? true : false;
+    const iconCount = props.icon ? 1 : 0;
+    return defaultSlot + iconCount > 1;
   });
 
-  const buttonClasses = computed(() => {
-    return {
-      'bg-sb-sky-blue-100 text-black dark:text-white hover:bg-sb-sky-blue-200 active:bg-sb-sky-blue-300 hover:shadow-button hover:shadow-sb-sky-blue-200 active:shadow-sb-sky-blue-300 shadow-none':
-        props.type === 'primary',
-      'border border-2 border-sb-sky-blue-100 bg-transparent text-sb-sky-blue-100 hover:bg-sb-sky-blue-100 hover:text-black dark:hover:text-white shadow-none hover:shadow-button hover:shadow-sb-sky-blue-100':
-        props.type === 'outline',
-      'rounded-full p-1': props.rounded,
-      'rounded-md px-4 py-2': !props.rounded,
-    };
-  });
+  const buttonKindMap = {
+    Primary: {
+      solid: {
+        class: 'bg-sb-sky-blue-100 text-black dark:text-white shadow-none',
+        hover:
+          'hover:bg-sb-sky-blue-200 hover:shadow-button hover:shadow-sb-sky-blue-200 ',
+        active: 'active:bg-sb-sky-blue-300 active:shadow-sb-sky-blue-300',
+      },
+      outline: {
+        class:
+          'border border-2 border-sb-sky-blue-100 bg-transparent text-sb-sky-blue-100  shadow-none',
+        hover:
+          'hover:bg-sb-sky-blue-100 hover:text-black dark:hover:text-white hover:shadow-button hover:shadow-sb-sky-blue-100',
+        active:
+          'active:bg-sb-sky-blue-100 active:text-black dark:active:text-white active:shadow-button active:shadow-sb-sky-blue-100',
+      },
+    },
+    Secondary: {
+      solid: {
+        class: '',
+        hover: '',
+        active: '',
+      },
+      outline: {
+        class: '',
+        hover: '',
+        active: '',
+      },
+    },
+  };
 </script>
 
 <template>
   <button
-    class="font-semibold transition-all duration-300 ease-in-out group"
+    v-bind="$attrs"
+    :disabled="props.disabled"
+    class="font-semibold transition-all duration-300 ease-in-out rounded-xl group disabled:opacity-40 disabled:cursor-not-allowed"
     :class="[
-      buttonClasses,
-      { 'inline-flex items-center gap-x-2': areMoreElementInSlot },
-      attrs.class,
+      buttonKindMap[props.kind][props.type].class,
+      props.disabled ? '' : buttonKindMap[props.kind][props.type].hover,
+      props.disabled ? '' : buttonKindMap[props.kind][props.type].active,
+      areMoreElementsInButtonWrapper
+        ? 'inline-flex items-center gap-x-2 px-4 py-2'
+        : 'p-1',
+      $attrs.class,
     ]"
   >
     <slot name="default" />
+    <BaseIcon
+      v-if="props.icon"
+      :icon="props.icon"
+      :class="areMoreElementsInButtonWrapper ? 'text-2xl text' : 'text-5xl'"
+    />
   </button>
 </template>

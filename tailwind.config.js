@@ -30,20 +30,6 @@ export default {
         search: '0 0 2rem',
         header: '0 1rem 1rem',
       },
-      width: {
-        'icon-xxl': '3rem',
-        'icon-xl': '2rem',
-        'icon-md': '1rem',
-        'icon-sm': '0.5rem',
-        'icon-xs': '0.25rem',
-      },
-      height: {
-        'icon-xxl': '3rem',
-        'icon-xl': '2rem',
-        'icon-md': '1rem',
-        'icon-sm': '0.5rem',
-        'icon-xs': '0.25rem',
-      },
       animation: {
         blink: 'blink 1s linear infinite',
       },
