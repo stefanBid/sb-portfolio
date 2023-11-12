@@ -8,18 +8,15 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BaseButton: (typeof import('./src/components/global/Button/BaseButton.vue'))['default'];
-    BaseIconMdiClose: (typeof import('~icons/mdi/close'))['default'];
-    BaseIconMdiConsole: (typeof import('~icons/mdi/console'))['default'];
-    BaseIconMdiDownload: (typeof import('~icons/mdi/download'))['default'];
-    BaseIconMdiGithub: (typeof import('~icons/mdi/github'))['default'];
-    BaseIconMdiHome: (typeof import('~icons/mdi/home'))['default'];
-    BaseIconMdiInstagram: (typeof import('~icons/mdi/instagram'))['default'];
-    BaseIconMdiLinkedin: (typeof import('~icons/mdi/linkedin'))['default'];
-    BaseIconMdiMenu: (typeof import('~icons/mdi/menu'))['default'];
-    BaseIconMdiWeatherNight: (typeof import('~icons/mdi/weather-night'))['default'];
-    BaseIconMdiWeatherSunny: (typeof import('~icons/mdi/weather-sunny'))['default'];
     BaseSwitch: (typeof import('./src/components/global/Switch/BaseSwitch.vue'))['default'];
     BaseTitle: (typeof import('./src/components/global/Title/BaseTitle.vue'))['default'];
+    HeaderLogo: (typeof import('./src/components/Header/components/HeaderLogo.vue'))['default'];
+    HeaderMenuButton: (typeof import('./src/components/Header/components/HeaderMenuButton.vue'))['default'];
+    HeaderNavBar: (typeof import('./src/components/Header/components/HeaderNavBar.vue'))['default'];
+    HeaderNavBarItem: (typeof import('./src/components/Header/components/HeaderNavBarItem.vue'))['default'];
+    HeaderOpenCloseMenu: (typeof import('./src/components/Header/components/HeaderOpenCloseMenu.vue'))['default'];
+    HeaderSkeleton: (typeof import('./src/components/Header/components/HeaderSkeleton.vue'))['default'];
+    HeaderTitle: (typeof import('./src/components/Header/components/HeaderTitle.vue'))['default'];
     RouterLink: (typeof import('vue-router'))['RouterLink'];
     RouterView: (typeof import('vue-router'))['RouterView'];
     TheFooter: (typeof import('./src/components/Footer/TheFooter.vue'))['default'];

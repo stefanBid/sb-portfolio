@@ -9,7 +9,7 @@ body {
 }
 
 html {
-  @apply text-[100%] lg:text-[70%] overflow-x-hidden;
+  @apply text-[100%] lg:text-[75%] overflow-x-hidden;
 }
 
 /* ===== Scrollbar CSS ===== */
