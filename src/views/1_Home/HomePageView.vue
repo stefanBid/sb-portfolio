@@ -10,6 +10,8 @@
   //page title
   const { setPageTitle } = usePageTitle();
 
+  //Set Contact button
+
   onMounted(() => {
     setPageTitle('Home');
   });
@@ -54,12 +56,14 @@
       <div class="inline-flex items-center my-5 gap-x-4">
         <BaseButton
           type="outline"
+          size="square"
           icon="Github"
           @click="openWindow('https://github.com/stefanBid')"
         />
 
         <BaseButton
           type="outline"
+          size="square"
           icon="Linkedin"
           @click="
             openWindow('https://www.linkedin.com/in/stefano-biddau-669149214/')
@@ -67,6 +71,7 @@
         />
         <BaseButton
           type="outline"
+          size="square"
           icon="Instagram"
           @click="openWindow('https://www.instagram.com/stefano_bid/?next=%2F')"
         />
@@ -78,7 +83,7 @@
             'https://drive.google.com/file/d/1wuibB821wePCKiF6Uy66dn623g7eW39g/view?usp=sharing',
           )
         "
-        class="my-10 text-xl"
+        class="my-10"
       >
         Download CV
       </BaseButton>
@@ -87,7 +92,7 @@
     <img
       src="/profile.png"
       alt="Foto profilo"
-      class="transition-all duration-300 ease-in-out rounded-full bg-sb-sky-blue-100"
+      class="transition-transform duration-300 ease-in-out rounded-full bg-sb-sky-blue-100"
       :style="{
         zoom: !breakpoints.lg ? '75%' : '50%',
       }"

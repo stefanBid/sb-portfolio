@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  //FIXME: fixare uk problema del padding
   import { BaseIcon } from '@/components';
   import { IconName } from '@/types/icon.type';
   import { computed, useSlots } from 'vue';
@@ -9,6 +8,7 @@
   export interface BaseButtonProps {
     kind?: ButtonKind;
     type?: 'solid' | 'outline';
+    size?: 'square' | 'rectangle';
     icon?: IconName;
     disabled?: boolean;
   }
@@ -16,6 +16,7 @@
   const props = withDefaults(defineProps<BaseButtonProps>(), {
     kind: 'Primary',
     type: 'solid',
+    size: 'rectangle',
     icon: undefined,
     disabled: false,
   });
@@ -23,12 +24,6 @@
   defineOptions({ inheritAttrs: false });
 
   const slots = useSlots();
-
-  const areMoreElementsInButtonWrapper = computed(() => {
-    const defaultSlot = slots.default?.().length || 0;
-    const iconCount = props.icon ? 1 : 0;
-    return defaultSlot + iconCount > 1;
-  });
 
   const buttonKindMap = {
     Primary: {
@@ -60,28 +55,49 @@
       },
     },
   };
+
+  const countSlotElements = (): number => {
+    const defaultSlot = slots.default?.().length || 0;
+    const iconCount = props.icon ? 1 : 0;
+    return defaultSlot + iconCount;
+  };
+
+  const buttonDynamicCss = computed(() => {
+    let cssClass: string[] = [];
+
+    cssClass.push(buttonKindMap[props.kind][props.type].class);
+
+    if (!props.disabled) {
+      cssClass.push(buttonKindMap[props.kind][props.type].hover);
+      cssClass.push(buttonKindMap[props.kind][props.type].active);
+    }
+
+    props.size === 'rectangle'
+      ? cssClass.push('px-4 py-2')
+      : cssClass.push('p-1');
+
+    if (countSlotElements() > 1) {
+      cssClass.push('inline-flex items-center gap-x-2');
+    }
+    return cssClass;
+  });
 </script>
 
 <template>
   <button
     v-bind="$attrs"
     :disabled="props.disabled"
-    class="font-semibold transition-all duration-300 ease-in-out rounded-xl group disabled:opacity-40 disabled:cursor-not-allowed"
-    :class="[
-      buttonKindMap[props.kind][props.type].class,
-      props.disabled ? '' : buttonKindMap[props.kind][props.type].hover,
-      props.disabled ? '' : buttonKindMap[props.kind][props.type].active,
-      areMoreElementsInButtonWrapper
-        ? 'inline-flex items-center gap-x-2 px-4 py-2'
-        : 'p-1',
-      $attrs.class,
-    ]"
+    class="font-semibold transition-all duration-300 ease-in-out rounded-xl group disabled:opacity-40 disabled:cursor-not-allowed hover:scale-110"
+    :class="[buttonDynamicCss, $attrs.class]"
   >
-    <slot name="default" />
+    <span class="text-xl">
+      <slot name="default" />
+    </span>
     <BaseIcon
       v-if="props.icon"
       :icon="props.icon"
-      :class="areMoreElementsInButtonWrapper ? 'text-2xl text' : 'text-5xl'"
+      class="transition-transform duration-300 ease-in-out"
+      :class="countSlotElements() !== 1 ? 'text-2xl' : 'text-4xl'"
     />
   </button>
 </template>

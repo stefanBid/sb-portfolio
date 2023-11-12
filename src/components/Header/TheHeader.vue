@@ -22,10 +22,6 @@
       displayName: 'Home',
       routerName: 'home',
     },
-    {
-      displayName: 'About',
-      routerName: 'about',
-    },
   ] as const;
 
   const isOpenMenu = computed(() => {
@@ -40,6 +36,10 @@
   //close menu when the menu button is clicked
   const toggleMenuWithButton = ($event: boolean) => {
     isOpen.value = $event;
+  };
+
+  const toggleMenuWithTitle = () => {
+    if (breakpoints.value.sm && isOpen.value) isOpen.value = false;
   };
 
   // Feature 2: Theme Switch
@@ -60,6 +60,7 @@
     <template #header-logo>
       <HeaderLogo
         title="Stefano Biddau"
+        @click="toggleMenuWithTitle"
         :linkTo="{ name: NAV_BAR_ITEMS[0].routerName }"
       />
     </template>
