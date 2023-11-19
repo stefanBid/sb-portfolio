@@ -4,13 +4,50 @@
   import { openWindow } from '@/utils/open.utils';
   import { BaseTitle, BaseButton } from '@/components';
   import TypingText from './components/TypingText.vue';
-  import { onMounted } from 'vue';
+  import { onMounted, ref } from 'vue';
+
   //breakpoints
   const { breakpoints } = useGlobalBreackPoints();
   //page title
   const { setPageTitle } = usePageTitle();
 
   //Set Contact button
+  const contactButton = [
+    {
+      icon: 'Github',
+      contactLink: 'https://github.com/stefanBid',
+    },
+    {
+      icon: 'Linkedin',
+      contactLink: 'https://www.linkedin.com/in/stefano-biddau-669149214/',
+    },
+    {
+      icon: 'Instagram',
+      contactLink: 'https://www.instagram.com/stefano_bid/?next=%2F',
+    },
+  ] as const;
+
+  const isDownloading = ref(false);
+
+  const downloadFile = () => {
+    isDownloading.value = true;
+
+    setTimeout(() => {
+      try {
+        const link = document.createElement('a');
+        link.href =
+          'https://drive.google.com/uc?export=download&id=1wuibB821wePCKiF6Uy66dn623g7eW39g';
+        link.setAttribute('download', 'Stefano_Biddau_CV.pdf'); // Imposta il nome del file da scaricare
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        console.error('Errore nel download del file:', error);
+      } finally {
+        isDownloading.value = false;
+      }
+    }, 1500); // Imposta un ritardo di 3 secondi
+  };
 
   onMounted(() => {
     setPageTitle('Home');
@@ -33,7 +70,7 @@
     ]"
   >
     <div
-      class="flex flex-col justify-center flex-1 border-white"
+      class="flex flex-col justify-center flex-1"
       :class="[
         {
           'flex-1 items-start': !breakpoints.sm,
@@ -41,58 +78,42 @@
         },
       ]"
     >
-      <BaseTitle size="xl">
-        <template #default>Hello Everyone!</template>
-      </BaseTitle>
       <BaseTitle
+        size="xl"
+        text="Hello Everyone!"
+      />
+
+      <BaseTitle
+        text="I'm"
+        prettyText="Stefano Biddau"
         size="xxl"
-        type="pretty"
         class="my-2"
-      >
-        <template #default>I'm</template>
-        <template #pretty> Stefano Biddau</template>
-      </BaseTitle>
+      />
+
       <TypingText />
       <div class="inline-flex items-center my-5 gap-x-4">
         <BaseButton
+          v-for="button in contactButton"
+          :key="button.icon"
           type="outline"
           size="square"
-          icon="Github"
-          @click="openWindow('https://github.com/stefanBid')"
-        />
-
-        <BaseButton
-          type="outline"
-          size="square"
-          icon="Linkedin"
-          @click="
-            openWindow('https://www.linkedin.com/in/stefano-biddau-669149214/')
-          "
-        />
-        <BaseButton
-          type="outline"
-          size="square"
-          icon="Instagram"
-          @click="openWindow('https://www.instagram.com/stefano_bid/?next=%2F')"
+          :icon="button.icon"
+          @click="openWindow(button.contactLink)"
         />
       </div>
       <BaseButton
         :icon="'DownloadArrow'"
-        @click="
-          openWindow(
-            'https://drive.google.com/file/d/1wuibB821wePCKiF6Uy66dn623g7eW39g/view?usp=sharing',
-          )
-        "
+        :isLoading="isDownloading"
         class="my-10"
+        @click="downloadFile()"
       >
         Download CV
       </BaseButton>
     </div>
-
     <img
       src="/profile.png"
       alt="Foto profilo"
-      class="transition-transform duration-300 ease-in-out rounded-full bg-sb-sky-blue-100"
+      class="transition-all duration-300 ease-in-out rounded-full bg-sb-sky-blue-100 animate-pulse-shadow shadow-sb-sky-blue-100"
       :style="{
         zoom: !breakpoints.lg ? '75%' : '50%',
       }"

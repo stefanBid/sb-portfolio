@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { ref, onMounted, onUnmounted } from 'vue';
+  import { BaseTitle } from '@/components';
 
   const texts: string[] = [
     'Front-End Developer',
@@ -49,8 +50,15 @@
 </script>
 
 <template>
-  <div class="relative pr-2 text-3xl font-semibold">
-    I'm a <span class="text-sb-sky-blue-100">{{ currentText }}</span>
-    <span class="animate-blink">_</span>
+  <div>
+    <BaseTitle
+      size="xl"
+      text="I'm a"
+      :prettyText="currentText"
+    />
+    <span
+      class="text-3xl font-semibold transition-all duration-300 ease-in-out animate-blink"
+      >_</span
+    >
   </div>
 </template>

@@ -3,22 +3,22 @@
   import { IconName } from '@/types/icon.type';
   import { computed, useSlots } from 'vue';
 
-  type ButtonKind = 'Primary' | 'Secondary';
+  type ButtonVariant = 'Primary' | 'Secondary';
 
   export interface BaseButtonProps {
-    kind?: ButtonKind;
+    variant?: ButtonVariant;
     type?: 'solid' | 'outline';
     size?: 'square' | 'rectangle';
     icon?: IconName;
-    disabled?: boolean;
+    isLoading?: boolean;
   }
 
   const props = withDefaults(defineProps<BaseButtonProps>(), {
-    kind: 'Primary',
+    variant: 'Primary',
     type: 'solid',
     size: 'rectangle',
     icon: undefined,
-    disabled: false,
+    isLoading: false,
   });
 
   defineOptions({ inheritAttrs: false });
@@ -27,50 +27,33 @@
 
   const buttonKindMap = {
     Primary: {
-      solid: {
-        class: 'bg-sb-sky-blue-100 text-black dark:text-white shadow-none',
-        hover:
-          'hover:bg-sb-sky-blue-200 hover:shadow-button hover:shadow-sb-sky-blue-200 ',
-        active: 'active:bg-sb-sky-blue-300 active:shadow-sb-sky-blue-300',
-      },
-      outline: {
-        class:
-          'border border-2 border-sb-sky-blue-100 bg-transparent text-sb-sky-blue-100  shadow-none',
-        hover:
-          'hover:bg-sb-sky-blue-100 hover:text-black dark:hover:text-white hover:shadow-button hover:shadow-sb-sky-blue-100',
-        active:
-          'active:bg-sb-sky-blue-100 active:text-black dark:active:text-white active:shadow-button active:shadow-sb-sky-blue-100',
-      },
+      solid: `
+        border-2 border-sb-sky-blue-100 bg-sb-sky-blue-100 text-black dark:text-white shadow-none
+        hover:bg-sb-sky-blue-200 hover:shadow-button hover:shadow-sb-sky-blue-200
+        active:bg-sb-sky-blue-300 active:shadow-sb-sky-blue-300`,
+      outline: `
+        border-2 border-sb-sky-blue-100 bg-transparent text-sb-sky-blue-100 shadow-none
+        hover:bg-sb-sky-blue-200 hover:text-black dark:hover:text-white hover:shadow-button hover:shadow-sb-sky-blue-100
+        active:bg-sb-sky-blue-300 active:text-black dark:active:text-white active:shadow-button active:shadow-sb-sky-blue-100`,
     },
     Secondary: {
-      solid: {
-        class: '',
-        hover: '',
-        active: '',
-      },
-      outline: {
-        class: '',
-        hover: '',
-        active: '',
-      },
+      solid: '',
+      outline: '',
     },
   };
 
   const countSlotElements = (): number => {
     const defaultSlot = slots.default?.().length || 0;
-    const iconCount = props.icon ? 1 : 0;
+    let iconCount = 0;
+    if (props.icon) iconCount = 1;
+    else if (props.isLoading) iconCount = 1;
     return defaultSlot + iconCount;
   };
 
   const buttonDynamicCss = computed(() => {
     let cssClass: string[] = [];
 
-    cssClass.push(buttonKindMap[props.kind][props.type].class);
-
-    if (!props.disabled) {
-      cssClass.push(buttonKindMap[props.kind][props.type].hover);
-      cssClass.push(buttonKindMap[props.kind][props.type].active);
-    }
+    cssClass.push(buttonKindMap[props.variant][props.type]);
 
     props.size === 'rectangle'
       ? cssClass.push('px-4 py-2')
@@ -86,17 +69,22 @@
 <template>
   <button
     v-bind="$attrs"
-    :disabled="props.disabled"
-    class="font-semibold transition-all duration-300 ease-in-out rounded-xl group disabled:opacity-40 disabled:cursor-not-allowed hover:scale-110"
+    :disabled="props.isLoading"
+    class="font-semibold transition-all duration-300 ease-in-out rounded-xl group disabled:pointer-events-none disabled:opacity-40 hover:scale-110"
     :class="[buttonDynamicCss, $attrs.class]"
   >
     <span class="text-xl">
       <slot name="default" />
     </span>
     <BaseIcon
-      v-if="props.icon"
+      v-if="props.icon && !props.isLoading"
       :icon="props.icon"
-      class="transition-transform duration-300 ease-in-out"
+      :class="[countSlotElements() !== 1 ? 'text-2xl' : 'text-4xl']"
+    />
+    <BaseIcon
+      v-else-if="props.isLoading"
+      icon="Loading"
+      class="animate-spin"
       :class="countSlotElements() !== 1 ? 'text-2xl' : 'text-4xl'"
     />
   </button>

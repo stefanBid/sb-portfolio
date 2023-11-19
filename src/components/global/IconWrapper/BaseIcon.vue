@@ -32,6 +32,7 @@
       HamburgerMenu: createIconSettings('mdi:menu'),
       Instagram: createIconSettings('mdi:instagram'),
       Linkedin: createIconSettings('mdi:linkedin'),
+      Loading: createIconSettings('mdi:loading'),
       Moon: createIconSettings('mdi:weather-night'),
       Sun: createIconSettings('mdi:white-balance-sunny'),
       XClose: createIconSettings('mdi:close'),

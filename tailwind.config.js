@@ -32,11 +32,16 @@ export default {
       },
       animation: {
         blink: 'blink 1s linear infinite',
+        'pulse-shadow': 'pulse-shadow 3s linear infinite',
       },
       keyframes: {
         blink: {
           '0%, 100%': { opacity: 0 },
           '50%': { opacity: 1 },
+        },
+        'pulse-shadow': {
+          '0%, 100%': { 'box-shadow': '0 0 0 0rem rgba(5, 130, 202, 0.7)' },
+          '100%': { 'box-shadow': '0 0 0 5.5rem rgba(5, 130, 202, 0)' },
         },
       },
     },

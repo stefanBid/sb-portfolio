@@ -6,6 +6,7 @@ type IconName =
   | 'HamburgerMenu'
   | 'Instagram'
   | 'Linkedin'
+  | 'Loading'
   | 'Moon'
   | 'Sun'
   | 'XClose';
