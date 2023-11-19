@@ -10,7 +10,7 @@
     type?: 'solid' | 'outline';
     size?: 'square' | 'rectangle';
     icon?: IconName;
-    disabled?: boolean;
+    isLoading?: boolean;
   }
 
   const props = withDefaults(defineProps<BaseButtonProps>(), {
@@ -18,7 +18,7 @@
     type: 'solid',
     size: 'rectangle',
     icon: undefined,
-    disabled: false,
+    isLoading: false,
   });
 
   defineOptions({ inheritAttrs: false });
@@ -44,7 +44,9 @@
 
   const countSlotElements = (): number => {
     const defaultSlot = slots.default?.().length || 0;
-    const iconCount = props.icon ? 1 : 0;
+    let iconCount = 0;
+    if (props.icon) iconCount = 1;
+    else if (props.isLoading) iconCount = 1;
     return defaultSlot + iconCount;
   };
 
@@ -67,7 +69,7 @@
 <template>
   <button
     v-bind="$attrs"
-    :disabled="props.disabled"
+    :disabled="props.isLoading"
     class="font-semibold transition-all duration-300 ease-in-out rounded-xl group disabled:pointer-events-none disabled:opacity-40 hover:scale-110"
     :class="[buttonDynamicCss, $attrs.class]"
   >
@@ -75,8 +77,14 @@
       <slot name="default" />
     </span>
     <BaseIcon
-      v-if="props.icon"
+      v-if="props.icon && !props.isLoading"
       :icon="props.icon"
+      :class="[countSlotElements() !== 1 ? 'text-2xl' : 'text-4xl']"
+    />
+    <BaseIcon
+      v-else-if="props.isLoading"
+      icon="Loading"
+      class="animate-spin"
       :class="countSlotElements() !== 1 ? 'text-2xl' : 'text-4xl'"
     />
   </button>

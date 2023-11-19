@@ -4,7 +4,7 @@
   import { openWindow } from '@/utils/open.utils';
   import { BaseTitle, BaseButton } from '@/components';
   import TypingText from './components/TypingText.vue';
-  import { onMounted } from 'vue';
+  import { onMounted, ref } from 'vue';
 
   //breakpoints
   const { breakpoints } = useGlobalBreackPoints();
@@ -26,6 +26,29 @@
       contactLink: 'https://www.instagram.com/stefano_bid/?next=%2F',
     },
   ] as const;
+
+  const isDownloading = ref(false);
+
+  const downloadFile = () => {
+    isDownloading.value = true;
+
+    setTimeout(() => {
+      try {
+        const link = document.createElement('a');
+        link.href =
+          'https://drive.google.com/uc?export=download&id=1wuibB821wePCKiF6Uy66dn623g7eW39g';
+        link.setAttribute('download', 'Stefano_Biddau_CV.pdf'); // Imposta il nome del file da scaricare
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        console.error('Errore nel download del file:', error);
+      } finally {
+        isDownloading.value = false;
+      }
+    }, 1500); // Imposta un ritardo di 3 secondi
+  };
+
   onMounted(() => {
     setPageTitle('Home');
   });
@@ -80,12 +103,9 @@
       </div>
       <BaseButton
         :icon="'DownloadArrow'"
+        :isLoading="isDownloading"
         class="my-10"
-        @click="
-          openWindow(
-            'https://drive.google.com/file/d/1wuibB821wePCKiF6Uy66dn623g7eW39g/view?usp=sharing',
-          )
-        "
+        @click="downloadFile()"
       >
         Download CV
       </BaseButton>
