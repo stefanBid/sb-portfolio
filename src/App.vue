@@ -1,15 +1,19 @@
 <script setup lang="ts">
   import { RouterView } from 'vue-router';
-  import TheHeader from './components/Header/TheHeader.vue';
-  import TheFooter from './components/Footer/TheFooter.vue';
+  import { MainLayout } from '@/components';
+  import { FooterWrapper, HeaderWrapper } from '@/components';
 </script>
 
 <template>
-  <div class="flex flex-col h-screen">
-    <TheHeader />
-    <main class="flex-grow overflow-x-hidden overflow-y-auto">
-      <RouterView />
-      <TheFooter />
-    </main>
-  </div>
+  <main-layout>
+    <template #header>
+      <header-wrapper />
+    </template>
+    <template #default>
+      <router-view />
+    </template>
+    <template #footer>
+      <footer-wrapper text="© 2023 Stefano Biddau. All rights reserved." />
+    </template>
+  </main-layout>
 </template>
