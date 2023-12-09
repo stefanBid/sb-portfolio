@@ -9,6 +9,7 @@ export default {
       lg: { max: '1023px' },
       md: { max: '767px' },
       sm: { max: '730px' },
+      xs: { max: '374px' },
     },
     fontFamily: {
       poppins: ['Poppins', 'sans-serif'],

@@ -1,23 +1,35 @@
 <script setup lang="ts">
   import { Switch } from '@headlessui/vue';
-  import { BaseIcon } from '@/components';
-  import { IconName } from '@/types/icon.type';
+  import { IconWrapper, IconNameType } from '@/components';
+  import { generateId } from '@/utils/generateId.utils';
 
-  type SwitchType = 'classic' | 'changeTheme';
+  type ColorType = 'white' | 'yellow' | 'charcoal';
 
-  export interface BaseSwitchProps {
-    kind?: SwitchType;
-    activeSwitchIcon?: IconName;
-    inactiveSwitchIcon?: IconName;
+  interface BaseSwitchProps {
+    id?: string;
+    activeDotColor: ColorType;
+    inactiveDotColor: ColorType;
+    activeSwitchIcon?: IconNameType;
+    inactiveSwitchIcon?: IconNameType;
   }
 
   const props = withDefaults(defineProps<BaseSwitchProps>(), {
+    id: () => generateId(),
+    varinatColor: 'blue',
+    activeDotColor: 'white',
+    inactiveDotColor: 'white',
     kind: 'classic',
     activeSwitchIcon: undefined,
     inactiveSwitchIcon: undefined,
   });
 
-  const enabled = defineModel<boolean>({ required: true, default: false });
+  const enabled = defineModel<boolean>({ required: true });
+
+  const SWITCH_COLOR_MAP = {
+    white: 'bg-white text-sb-charcoal-100',
+    yellow: 'bg-yellow-500 text-white',
+    charcoal: 'bg-sb-charcoal-100 text-white',
+  };
 </script>
 
 <template>
@@ -30,19 +42,16 @@
       <span
         aria-hidden="true"
         class="inline-flex items-center justify-center w-6 h-6 transition duration-200 ease-in-out transform border-none rounded-full shadow-lg ring-0"
-        :class="[
-          props.kind === 'changeTheme'
-            ? enabled
-              ? 'bg-sb-charcoal-100'
-              : 'bg-yellow-500'
-            : 'bg-white',
-          enabled ? 'translate-x-7' : 'translate-x-0',
-        ]"
+        :class="
+          enabled
+            ? [SWITCH_COLOR_MAP[props.activeDotColor], 'translate-x-7']
+            : [SWITCH_COLOR_MAP[props.inactiveDotColor], 'translate-x-0']
+        "
       >
-        <BaseIcon
+        <icon-wrapper
           v-if="props.activeSwitchIcon && props.inactiveSwitchIcon"
           :icon="enabled ? props.activeSwitchIcon : props.inactiveSwitchIcon"
-          class="text-lg text-white"
+          class="text-lg"
         />
       </span>
     </Switch>
