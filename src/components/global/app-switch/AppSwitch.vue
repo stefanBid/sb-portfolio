@@ -2,6 +2,7 @@
   import { Switch } from '@headlessui/vue';
   import { IconWrapper, IconNameType } from '@/components';
   import { generateId } from '@/utils/generateId.utils';
+  import { getSwitchCss } from '@/styles/components-map-style/switchStyle';
 
   type ColorType = 'white' | 'yellow' | 'charcoal';
 
@@ -15,21 +16,13 @@
 
   const props = withDefaults(defineProps<BaseSwitchProps>(), {
     id: () => generateId(),
-    varinatColor: 'blue',
     activeDotColor: 'white',
     inactiveDotColor: 'white',
-    kind: 'classic',
     activeSwitchIcon: undefined,
     inactiveSwitchIcon: undefined,
   });
 
   const enabled = defineModel<boolean>({ required: true });
-
-  const SWITCH_COLOR_MAP = {
-    white: 'bg-white text-sb-charcoal-100',
-    yellow: 'bg-yellow-500 text-white',
-    charcoal: 'bg-sb-charcoal-100 text-white',
-  };
 </script>
 
 <template>
@@ -44,8 +37,8 @@
         class="inline-flex items-center justify-center w-6 h-6 transition duration-200 ease-in-out transform border-none rounded-full shadow-lg ring-0"
         :class="
           enabled
-            ? [SWITCH_COLOR_MAP[props.activeDotColor], 'translate-x-7']
-            : [SWITCH_COLOR_MAP[props.inactiveDotColor], 'translate-x-0']
+            ? [getSwitchCss(props.activeDotColor), 'translate-x-7']
+            : [getSwitchCss(props.inactiveDotColor), 'translate-x-0']
         "
       >
         <icon-wrapper

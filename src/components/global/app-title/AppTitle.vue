@@ -2,12 +2,12 @@
   export interface BaseTitleProps {
     text: string;
     prettyText?: string;
-    size?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+    size?: 'xl' | 'xxl';
   }
 
   const props = withDefaults(defineProps<BaseTitleProps>(), {
     prettyText: undefined,
-    size: 'md',
+    size: 'xl',
   });
 </script>
 

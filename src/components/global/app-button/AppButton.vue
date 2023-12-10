@@ -2,6 +2,7 @@
   import { generateId } from '@/utils/generateId.utils';
   import { IconWrapper, IconNameType } from '@/components';
   import { computed, useSlots } from 'vue';
+  import { getButtonCss } from '@/styles/components-map-style/buttonStyle';
 
   /* ---- TYPES ---- */
   type ButtonVariantType = 'primary' | 'secondary' | 'none';
@@ -28,32 +29,14 @@
   /* ---- DATA ---- */
   const slots = useSlots();
 
-  const BUTTON_CSS_MAP = {
-    primary: {
-      solid: `
-            border-2 border-sb-sky-blue-100 bg-sb-sky-blue-100 text-black dark:text-white shadow-none
-            hover:bg-sb-sky-blue-200 hover:shadow-button hover:shadow-sb-sky-blue-200
-            active:bg-sb-sky-blue-300 active:shadow-sb-sky-blue-300`,
-      outline: `
-            border-2 border-sb-sky-blue-100 bg-transparent text-sb-sky-blue-100 shadow-none
-            hover:bg-sb-sky-blue-200 hover:text-black dark:hover:text-white hover:shadow-button hover:shadow-sb-sky-blue-100
-            active:bg-sb-sky-blue-300 active:text-black dark:active:text-white active:shadow-button active:shadow-sb-sky-blue-100`,
-    },
-    secondary: {
-      solid: '',
-      outline: '',
-    },
-  };
-
   // FEATRURE 1: Calculate button style and size based on props
   const buttonDynamicCss = computed(() => {
     let cssClass: string[] = [];
     if (props.variant !== 'none') {
       cssClass.push('hover:scale-110');
+      cssClass.push(getButtonCss(props.variant, props.type));
+
       const slotElements = slots.default?.().length || 0;
-
-      cssClass.push(BUTTON_CSS_MAP[props.variant][props.type]);
-
       if (slotElements === 0) cssClass.push('p-1');
       else cssClass.push('px-4 py-2');
 
@@ -61,7 +44,15 @@
         cssClass.push('inline-flex items-center gap-x-2');
       }
     }
-    return cssClass;
+    return cssClass.join(' ');
+  });
+
+  // FEATURE 2: Calculate button icon-name based on props
+  const buttonDynamicIcon = computed(() => {
+    let iconSettings: IconNameType | undefined = undefined;
+    if (props.icon && !props.isLoading) iconSettings = props.icon;
+    else if (props.isLoading) iconSettings = 'loading';
+    return iconSettings;
   });
 </script>
 
@@ -76,15 +67,12 @@
       <slot name="default" />
     </span>
     <icon-wrapper
-      v-if="props.icon && !props.isLoading"
-      :icon="props.icon"
-      :class="slots.default?.().length ? 'text-2xl' : 'text-4xl'"
-    />
-    <icon-wrapper
-      v-else-if="props.isLoading"
-      icon="loading"
-      class="animate-spin"
-      :class="slots.default?.().length ? 'text-2xl' : 'text-4xl'"
+      v-if="buttonDynamicIcon !== undefined"
+      :icon="buttonDynamicIcon"
+      :class="[
+        slots.default?.().length ? 'text-2xl' : 'text-4xl',
+        { 'animate-spin': buttonDynamicIcon === 'loading' },
+      ]"
     />
   </button>
 </template>
