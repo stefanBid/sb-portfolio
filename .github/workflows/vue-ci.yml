@@ -37,14 +37,5 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Bump version and generate changelog
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          npm run release
-          git add CHANGELOG.md package.json
-          git commit -m "chore(release): bump version"
-          git push
-
       - name: GitHub Status Check
         run: echo "All steps have passed!"
