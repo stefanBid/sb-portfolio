@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18.16.0'
+          node-version: '20.10.0'
 
       - name: Verify Node.js version
         run: node -v
@@ -36,6 +36,15 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Bump version and generate changelog
+        run: |
+          npm run release
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add CHANGELOG.md package.json
+          git commit -m "chore(release): bump version"
+          git push
 
       - name: GitHub Status Check
         run: echo "All steps have passed!"
