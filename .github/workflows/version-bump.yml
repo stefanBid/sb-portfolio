@@ -26,3 +26,5 @@ jobs:
           git config --local user.name "GitHub Action"
           npm run release
           git push --follow-tags
+        env:
+          BUMP_TOKEN: ${{ secrets.BUMP_TOKEN }}
