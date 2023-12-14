@@ -5,6 +5,7 @@
   /* ---- TYPES ---- */
   type IconNameType =
     | 'alien'
+    | 'chevronDown'
     | 'console'
     | 'downloadArrow'
     | 'github'
@@ -46,6 +47,7 @@
   const iconSettings = {
     mdi: {
       alien: createIconSettings('mdi:alien', 'mdi:alien-outline'),
+      chevronDown: createIconSettings('mdi:chevron-down'),
       console: createIconSettings('mdi:console', 'mdi:console-line'),
       downloadArrow: createIconSettings('mdi:download', 'mdi:download-outline'),
       github: createIconSettings('mdi:github'),
