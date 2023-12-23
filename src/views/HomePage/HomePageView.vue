@@ -98,10 +98,7 @@
       <img
         src="/profile.png"
         alt="Foto profilo"
-        class="transition-all duration-300 ease-in-out rounded-full bg-sb-sky-blue-100 animate-pulse-shadow shadow-sb-sky-blue-100"
-        :style="{
-          zoom: !breakpoints.lg ? '75%' : '50%',
-        }"
+        class="transition-all duration-300 ease-in-out rounded-full bg-sb-sky-blue-100 animate-pulse-shadow shadow-sb-sky-blue-100 w-[300px] lg:w-[250px] sm:w-[200px]"
       />
     </template>
   </two-tabs-layout>

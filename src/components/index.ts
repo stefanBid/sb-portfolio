@@ -2,6 +2,7 @@
 export { default as AppButton } from '@/components/global/app-button/AppButton.vue';
 export { default as AppSwitch } from '@/components/global/app-switch/AppSwitch.vue';
 export { default as AppTitle } from '@/components/global/app-title/AppTitle.vue';
+export { default as AppAccordionGroup } from '@/components/global/app-accordion-group/AppAccordionGroup.vue';
 
 //Barrel Export Layout Components
 export { default as HeaderLayout } from '@/components/layout/header-layout/HeaderLayout.vue';
