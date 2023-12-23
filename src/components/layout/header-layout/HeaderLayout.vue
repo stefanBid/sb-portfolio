@@ -76,7 +76,7 @@
       <!-- (NAVBAR EXTRA) -->
       <div
         v-if="isExtraVisible"
-        :class="{ 'block py-6 px-[3%] mx-0 w-full': props.isSmallScreen }"
+        :class="{ 'block py-6 px-[4%] mx-0 w-full': props.isSmallScreen }"
       >
         <slot name="header-navbar-extra" />
       </div>
