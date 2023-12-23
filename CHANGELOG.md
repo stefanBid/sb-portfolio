@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/stefanBid/sb-portfolio/compare/v1.1.0...v1.2.0) (2023-12-23)
+
+
+### Features
+
+* **AccordionGroup:** add accrodion group for new page of portfolio ([57c22f4](https://github.com/stefanBid/sb-portfolio/commit/57c22f40615b2e1fb526cd6afdc080093e4575cb))
+
+
+### Bug Fixes
+
+* improvements ([4612655](https://github.com/stefanBid/sb-portfolio/commit/46126556e78217b41d201fb798a6f7d8ea53ab6e))
+* update release version ([e96a93e](https://github.com/stefanBid/sb-portfolio/commit/e96a93e50a4902ad9b2e7532ee370b62cf9f3562))
+
 ## 1.1.0 (2023-12-14)
 
 ### Features
